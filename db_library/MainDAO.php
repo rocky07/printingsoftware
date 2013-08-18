@@ -42,23 +42,23 @@ class MainDAO extends Database_MySql
 		return $records;
 	}
 //saves the user posts...
-	function savePost($values)
+	function saveAsTemplates($values)
 	{
 		$result	=	false;
 		$validator	=	new Validator(array(
-				$values["s"]=>"Name/EMPTY",
-				$values["userId"]=>"Name/EMPTY"
+				$values["name"]=>"Name/EMPTY",
+				$values["template"]=>"Name/EMPTY"
 		));
 		if($validator->validate())
 		{
 				
 			$array=array(
-					"post"=>$values["s"],
-					"posted_by"=>$values["userId"]
+					"name"=>$values["name"],
+					"templates"=>$values["template"]
 	
 			);
-			$type	=	"si";
-			$this->insert($array,"posts",$type);
+			$type	=	"ss";
+			$this->insert($array,"templates",$type);
 			$result	=	true;
 	
 		}

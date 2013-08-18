@@ -46,6 +46,7 @@ class Database_MySql
 			 $this->dbPass		=	$db["dbPass"];
 			 $this->dbName		=	$db["dbName"];
 			 $this->dbHost		=	$db["dbHost"];
+
 		
 			try{
 			
@@ -138,20 +139,35 @@ class Database_MySql
 		
 		
     }
+	
+	
+	
+	function refValues($arr){ 
+		if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+ 
+		{ 
+			$refs = array(); 
+			foreach($arr as $key => $value) 
+				$refs[$key] = &$arr[$key]; 
+			return $refs; 
+		} 
+		return $arr; 
+    } 
+	
+	
    
     #takes in array of bind parameters and binds them to result of
     #executed prepared stmt
    
     private function bindParameters(&$obj, &$bind_params_r)
     {
-        if(call_user_func_array(array($obj, "bind_param"), $bind_params_r)){
+        if(call_user_func_array(array($obj, "bind_param"), $this->refValues($bind_params_r))){
 			return true;
 		}
     }
    
     private function bindResult(&$obj, &$bind_result_r)
     {
-        call_user_func_array(array($obj, "bind_result"), $bind_result_r);
+        call_user_func_array(array($obj, "bind_result"), $this->refValues($bind_result_r));
     }
    
     #returns a list of the selected field names
@@ -191,7 +207,9 @@ class Database_MySql
 				$bound_param[$start+1]	=	$val;
 				$start++;
 			}	
-		  $queryString	=	"INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString}) ";	   
+		  $queryString	=	"INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString}) ";
+		 // echo $queryString;
+		//  sbreak;
 		   
 			try{
 				if(!$stmt	=	$this->connection->prepare($queryString)){

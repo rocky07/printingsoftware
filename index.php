@@ -17,6 +17,7 @@ $templateList=$objMain->fetchAllTemplates();
 <script type="text/javascript" src="lib/ext/ext-all.js"></script>
 <script language="javascript" src="jquery-1.5.1.min.js"></script>
 <script language="javascript">
+
 function loadTemplate(tab){
 	var basePath="template/";
 	var filePath=basePath+tab.value;
@@ -30,7 +31,6 @@ function loadTemplate(tab){
 }
 
 function loadDBTemplates(templateId){
-
 url="loaddbtemplates.php";
 Ext.Ajax.request({
 url:url,
@@ -39,6 +39,43 @@ params:{templateId:templateId},
 		document.getElementById("layout").innerHTML=response.responseText;
 	}
 	});
+}
+
+function extAjaxSave(url,params){
+Ext.Ajax.request({
+url:url,
+params:params,
+	success:function(response){
+		var respObj=eval(response.responseText)[0];
+		if(respObj.status=="true"){
+			Ext.Msg.alert("Success",respObj.msg);
+			}
+		else if(respObj.status=="duplicate"){
+			Ext.Msg.alert("Duplicate",respObj.msg);
+			}
+		else if(respObj.status=="false"){
+			Ext.Msg.alert("Failure",respObj.msg);
+			}
+		else{
+			Ext.Msg.alert("",respObj.msg);
+			}
+	},
+	failure:function(){
+		Ext.Msg.alert("Server Error","Server Error! Please try again");
+	}
+	});
+
+}
+
+function saveAsTemplate(){
+var templateName=document.getElementById("templateName").value;
+var template=document.getElementById("layout").innerHTML;
+	if(templateName!=""){
+		extAjaxSave("saveTemplate.php",{name:templateName,template:template});	
+		}
+	else{
+		Ext.Msg.alert("Name required");
+		}
 }
 
 </script>
@@ -73,6 +110,8 @@ params:{templateId:templateId},
 ?>
 </select>
 
+Name : <input type="text" name="templateName" id="templateName"/> 
+<input type="button" oncliCK="saveAsTemplate();" value="Save Template"/>
 <input type="button" value="Print" onclick="window.print();"/>
 </div>
 <div id="layout">
