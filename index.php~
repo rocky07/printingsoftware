@@ -1,0 +1,131 @@
+<?php
+ob_start();
+include("autoload.php");
+$register = new Session();
+
+$objMain=new MainDAO();
+$templateList=$objMain->fetchAllTemplates();
+?>
+<html>
+<head>
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-6">
+<META HTTP-EQUIV="Content-language" CONTENT="ar">
+
+<link rel="stylesheet" type="text/css" href="lib/ext/resources/css/ext-all.css"/>
+<script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
+<script type="text/javascript" src="lib/ext/ext-all.js"></script>
+<script language="javascript" src="jquery-1.5.1.min.js"></script>
+<script language="javascript">
+
+Ext.onReady(function(){
+    var handleAction = function(action){
+        Ext.example.msg('<b>Action</b>', 'You clicked "'+action+'"');
+    };
+    
+    var p = new Ext.Window({
+        title: 'Standard',
+        closable: false,
+        bodyStyle: 'padding:10px',
+        contentEl: 'wrapper',
+        autoScroll: true,
+        tbar: new Ext.Toolbar({
+            enableOverflow: true,
+            items: [{
+                xtype:'splitbutton',
+                text: 'Menu Button',
+                iconCls: 'add16',
+                handler: handleAction.createCallback('Menu Button'),
+                menu: [{text: 'Menu Item 1', handler: handleAction.createCallback('Menu Item 1')}]
+            },'-',{
+                xtype:'splitbutton',
+                text: 'Cut',
+                iconCls: 'add16',
+                handler: handleAction.createCallback('Cut'),
+                menu: [{text: 'Cut menu', handler: handleAction.createCallback('Cut menu')}]
+            },{
+                text: 'Copy',
+                iconCls: 'add16',
+                handler: handleAction.createCallback('Copy')
+            },{
+                text: 'Paste',
+                iconCls: 'add16',
+                menu: [{text: 'Paste menu', handler: handleAction.createCallback('Paste menu')}]
+            },'-',{
+                text: 'Format',
+                iconCls: 'add16',
+                handler: handleAction.createCallback('Format')
+            },'->',{
+                text: 'Right',
+                iconCls: 'add16',
+                handler: handleAction.createCallback('Right')
+            }]
+        })
+    });
+    p.show();
+
+});
+
+function loadTemplate(tab){
+	var basePath="template/";
+	var filePath=basePath+tab.value;
+	if(tab.value!=0){
+    	$.post( filePath,"",
+  	      function( data ) {	      	
+		       $("#layout").html(data);
+  	      }
+  	    );	
+	}
+}
+
+function loadDBTemplates(templateId){
+
+url="loaddbtemplates.php";
+Ext.Ajax.request({
+url:url,
+params:{templateId:templateId},
+	success:function(response){
+		document.getElementById("layout").innerHTML=response.responseText;
+	}
+	});
+}
+
+</script>
+<style type="text/css">
+/* use Scheherazade - Regular in .woff format */
+
+@MEDIA print {
+	#layout{
+	
+	}
+	#toolbar{
+	visibility:hidden;
+	}
+}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<div id="toolbar">
+<select onchange="loadTemplate(this);">
+<option value="0">None</option>
+<option value="smarttab30.html"> Smart Tab30</option>
+<option value="smarttab60.html">Smart Tab60</option>
+</select>
+
+<select onchange="loadDBTemplates(this.value);">
+<option value="0">Select</option>
+<?php for($c=0;$c<count($templateList);$c++){?>
+<option value="<?php echo $templateList[$c]["id"]; ?>"><?php echo $templateList[$c]["name"]; ?></option>
+<?php
+}
+?>
+</select>
+
+<input type="button" value="Print" onclick="window.print();"/>
+</div>
+<div id="layout">
+</div>
+</div>
+</body>
+</html>
