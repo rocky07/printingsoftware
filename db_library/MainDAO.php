@@ -10,7 +10,7 @@ class MainDAO extends Database_MySql
 		parent::__construct();
 		$this->connect();
 		$this->userId	=	null;
-		$this->utilObject	=	new Utilities();
+		//$this->utilObject	=	new Utilities();
 		
 	}
 
@@ -31,7 +31,7 @@ class MainDAO extends Database_MySql
 	}
 	function deleteTemplate($id)
 			{
-				$tname	=	"template";
+				$tname	=	"templates";
 				$condition	=	"id=?";
 				$param		=	array("i",$id);
 				$this->delete($tname,$condition,$param);

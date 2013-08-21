@@ -4,6 +4,7 @@ class Database_MySql
 
 	private $dbUser;
 	private $dbPass;
+	private $connection;
 	private $dbName;
 	private $dbHost;
     public $errorMessage; 
