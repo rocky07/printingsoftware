@@ -29,6 +29,13 @@ class MainDAO extends Database_MySql
 		$records	=	$this->fetchAll($qry);
 		return $records;
 	}
+	function deleteTemplate($id)
+			{
+				$tname	=	"template";
+				$condition	=	"id=?";
+				$param		=	array("i",$id);
+				$this->delete($tname,$condition,$param);
+			}
 	
 	function fetchAllPosts($start,$limit)
 	{
