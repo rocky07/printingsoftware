@@ -78,6 +78,15 @@ var template=document.getElementById("layout").innerHTML;
 		}
 }
 
+function deleteTemplate(){
+var templateId=document.getElementById("dbTemplates").value;
+	if(templateId!=""){//empty check for select
+		extAjaxSave("deleteTemplate.php",{id:templateId});	
+	}else{
+		Ext.Msgalert("Name Required");
+	}
+}
+
 </script>
 <style type="text/css">
 /* use Scheherazade - Regular in .woff format */
@@ -101,7 +110,7 @@ var template=document.getElementById("layout").innerHTML;
 <option value="smarttab60.html">Smart Tab60</option>
 </select>
 
-<select onchange="loadDBTemplates(this.value);">
+<select id="dbTemplates" onchange="loadDBTemplates(this.value);">
 <option value="0">Select</option>
 <?php for($c=0;$c<count($templateList);$c++){?>
 <option value="<?php echo $templateList[$c]["id"]; ?>"><?php echo $templateList[$c]["name"]; ?></option>
@@ -109,7 +118,7 @@ var template=document.getElementById("layout").innerHTML;
 }
 ?>
 </select>
-
+<input type="button" name="Delete" onclick="deleteTemplate()" />
 Name : <input type="text" name="templateName" id="templateName"/> 
 <input type="button" oncliCK="saveAsTemplate();" value="Save Template"/>
 <input type="button" value="Print" onclick="window.print();"/>
