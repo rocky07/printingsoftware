@@ -2,8 +2,8 @@
 ob_start();
 include("autoload.php");
 $register = new Session();
-$name=$_REQUEST['name'];
-$template=$_REQUEST['template'];
+$name=$_REQUEST["name"];
+$template=$_REQUEST["template"];
 $objMain=new MainDAO();
 $returnString="";
 if($objMain->saveAsTemplates($name,$template)){

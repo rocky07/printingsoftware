@@ -98,15 +98,63 @@ return divArray;
 
 function setAutoIncNo(){	
 	var autoIncNo=document.getElementById("autoIncNo").value;
-	if(autoIncNo!=""){
+	if(autoIncNo!="" && !isNaN(autoIncNo)){
 	var divElements=findLabelDivs("roweditable");
 		for(var i=0;i<divElements.length;i++){
-				divElements.innerHML=i+autoIncNo;
+				divElements[i].innerHTML=(i+1)*parseInt(autoIncNo);
 			}
 	}else{
 		Ext.Msg.alert("Error","Enter a Valid Number");
 	
 		}
+}
+
+function clearTemplate(){		
+	var divElements=findLabelDivs("roweditable");
+		for(var i=0;i<divElements.length;i++){
+				divElements[i].innerHTML="";
+			}	
+}
+
+function setDateField(){	
+	var dateField=document.getElementById("dateField").value;
+	if(dateField!=""){
+	var divElements=findLabelDivs("roweditable");
+		for(var i=0;i<divElements.length;i++){
+				divElements[i].innerHTML+=dateField;
+			}
+	}else{
+		Ext.Msg.alert("Error","Enter a Text");
+		}
+}
+
+function toggleLines(buttonObj){
+	var divElements=findLabelDivs("roweditable");
+	if(buttonObj.value=="DoubleLine"){
+		buttonObj.value="SingleLine"
+			for(var i=0;i<divElements.length;i++){
+				divElements[i].innerHTML+="<br/><hr/><br/>";
+				}
+		}
+	else{
+		buttonObj.value="DoubleLine";
+		for(var i=0;i<divElements.length;i++){
+			divElements[i].innerHTML="";
+			}
+		}
+	
+}
+
+function alignPrinter(){
+	new Ext.Window({
+			width:400,
+			height:300,
+			items:[{
+					
+					}
+					]
+			
+			}).show();	
 }
 
 </script>
@@ -144,6 +192,11 @@ Name : <input type="text" name="templateName" id="templateName"/>
 <input type="button" oncliCK="saveAsTemplate();" value="Save Template"/>
 <input type="text" id="autoIncNo" />
 <input type="button" onclick="setAutoIncNo();" value="Apply"/>
+<input type="text" id="dateField" />
+<input type="button" onclick="setDateField();" value="Apply"/>
+<input type="button" onclick="toggleLines(this);" value="DoubleLines"/>
+<input type="button" onclick="clearTemplate();" value="Clear Template"/>
+<input type="button" onclick="alignPrinter();" value="Align Printer"/>
 <input type="button" value="Print" onclick="window.print();"/>
 </div>
 <div id="layout">

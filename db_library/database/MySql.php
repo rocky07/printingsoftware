@@ -196,6 +196,8 @@ class Database_MySql
 			$bound_param	=	array();
 			$bound_param[0]	=	$ty;
 			$queryString	=	"";
+			$valueString =""; 
+			$fieldString="";
 			$p				=	count($options);
 			$start			=	0;
 			foreach($options as $key=>$val){

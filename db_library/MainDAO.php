@@ -29,12 +29,15 @@ class MainDAO extends Database_MySql
 		$records	=	$this->fetchAll($qry);
 		return $records;
 	}
-	function deleteTemplate($id)
+	function deleteTemplates($id)
 			{
+				$flag=false;
 				$tname	=	"templates";
 				$condition	=	"id=?";
 				$param		=	array("i",$id);
 				$this->delete($tname,$condition,$param);
+				$flag=true;	
+				return $flag;
 			}
 	
 	function fetchAllPosts($start,$limit)
@@ -49,19 +52,19 @@ class MainDAO extends Database_MySql
 		return $records;
 	}
 //saves the user posts...
-	function saveAsTemplates($values)
+	function saveAsTemplates($name,$template)
 	{
 		$result	=	false;
 		$validator	=	new Validator(array(
-				$values["name"]=>"Name/EMPTY",
-				$values["template"]=>"Name/EMPTY"
+				$name=>"Name/EMPTY",
+				$template=>"Name/EMPTY"
 		));
 		if($validator->validate())
 		{
 				
 			$array=array(
-					"name"=>$values["name"],
-					"templates"=>$values["template"]
+					"name"=>$name,
+					"templates"=>$template
 	
 			);
 			$type	=	"ss";
