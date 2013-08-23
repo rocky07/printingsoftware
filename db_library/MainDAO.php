@@ -16,7 +16,7 @@ class MainDAO extends Database_MySql
 
 	function fetchAllTemplates()
 	{
-		$qry	=	"SELECT * FROM `templates`";
+		$qry	=	"SELECT id,name FROM `templates`";
 		//$param	=	array("i",$id);
 		$records	=	$this->fetchAll($qry);
 		return $records;

@@ -40,7 +40,7 @@ params:{templateId:templateId},
 	});
 }
 
-function extAjaxSave(url,params){
+function extAjaxSave(url,params,callback){
 Ext.Ajax.request({
 url:url,
 params:params,
@@ -61,7 +61,8 @@ params:params,
 	},
 	failure:function(){
 		Ext.Msg.alert("Server Error","Server Error! Please try again");
-	}
+	},
+	callback:callback
 	});
 
 }
@@ -70,7 +71,7 @@ function saveAsTemplate(){
 var templateName=document.getElementById("templateName").value;
 var template=document.getElementById("layout").innerHTML;
 	if(templateName!=""){
-		extAjaxSave("saveTemplate.php",{name:templateName,template:template});	
+		extAjaxSave("saveTemplate.php",{name:templateName,template:template},updateTemplatesList);	
 		}
 	else{
 		Ext.Msg.alert("Name required");
@@ -80,7 +81,7 @@ var template=document.getElementById("layout").innerHTML;
 function deleteTemplate(){
 var templateId=document.getElementById("dbTemplates").value;
 	if(templateId!=""){//empty check for select
-		extAjaxSave("deleteTemplates.php",{id:templateId});	
+		extAjaxSave("deleteTemplates.php",{id:templateId},updateTemplatesList);	
 	}else{
 		Ext.Msg.alert("Select a Template to Deletes");
 	}
@@ -157,6 +158,24 @@ function alignPrinter(){
 			}).show();	
 }
 
+function updateTemplatesList(){
+	var dbTemplatesObj=document.getElementById("dbTemplates");
+	dbTemplatesObj.options.length=0;
+	Ext.Ajax.request({
+		url:"templateList.php",
+			success:function(response){
+				var respObj=eval(response.responseText);
+				for(var i=0;i<respObj.length;i++){
+					dbTemplatesObj.add(new Option(respObj[i].name,respObj[i].id));
+					}
+			},
+			failure:function(){
+				Ext.Msg.alert("Server Error","Server Error! Please try again");
+			}
+			});
+			
+	
+}
 </script>
 <style type="text/css">
 

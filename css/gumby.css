@@ -1,0 +1,409 @@
+/* Tabs */
+.tabs {
+	display: block;
+}
+.tabs .tab-nav {
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+.tabs .tab-nav > li {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	padding: 0;
+	margin: 0 2.12766% 0 0;
+	cursor: default;
+	top: 1px;
+}
+.tabs .tab-nav > li > a {
+	display: block;
+	width: auto;
+	padding: 0 16px;
+	margin: 0;
+	color: #555555;
+	font-family: "Open Sans";
+	font-weight: 600;
+	border: 1px solid #e5e5e5;
+	border-width: 1px 1px 0 1px;
+	/*text-shadow: 0 1px 1px white;*/
+	background: #f2f2f2;
+	cursor: pointer;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-ms-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	height: 42px;
+	line-height: 40px;
+	text-decoration: none;
+}
+.tabs .tab-nav > li > a {
+	display: block;
+	width: auto;
+	padding: 0 16px;
+	margin: 0;
+	color: #555555;
+	font-family: "Open Sans";
+	font-weight: 600;
+	border: 1px solid #e5e5e5;
+	border-width: 1px 1px 0 1px;
+	/*text-shadow: 0 1px 1px white;*/
+	background: #f2f2f2;
+	cursor: pointer;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-ms-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	height: 42px;
+	line-height: 40px;
+	text-decoration: none;
+}
+.clear {
+	clear:both;
+}
+.tabs .tab-nav > li > a:hover {
+	text-decoration: none;
+	background: whitesmoke;
+}
+.tabs .tab-nav > li > a:active {
+	background: #ededed;
+}
+.tabs .tab-nav > li.active > a {
+	height: 43px;
+	line-height: 41px;
+	background: #fff;
+}
+.tabs .tab-nav > li:last-child {
+	margin-right: 0;
+}
+.tabs .tab-content {
+	display: none;
+	padding:0px 0px;
+}
+.tabs .tab-content.active {
+	display: block;
+}
+.tabs .tab-content_2 {
+	display: none;
+	padding:0px 0px;
+}
+.tabs .tab-content_2.active {
+	display: block;
+}
+
+
+.tabs.pill .tab-nav {
+	/*width: 100%;*/ /* remove if you dont want the tabs to span the full container width */
+	display: table;
+	overflow: hidden;
+	border:solid 0px #000000;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright:5px;
+	-moz-border-radius-bottomleft:0px;
+	-moz-border-radius-bottomright:0px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-webkit-border-bottom-left-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-left-radius:0px;
+	border-bottom-right-radius:0px;
+	position: absolute;
+	right: 5px;
+	top: -42px;
+}
+.tabs.pill .tab-nav > li {
+	display: table-cell;
+	margin: 0;
+	margin-left: -4px;
+	text-align: center;
+	top: 0;
+}
+.tabs.pill .tab-nav > li:first-child {
+	margin-left: 0;
+}
+.tabs.pill .tab-nav > li > a {
+	border: none;
+	border-right: 1px solid #e5e5e5;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	height: 42px;
+	line-height: 40px;
+	background:#9fd2bc;
+}
+.tabs.pill .tab-nav > li:last-child > a {
+	border-right: none;
+}
+.container {
+	width:952px;
+	margin:0px auto;
+	background:#f6fefb;
+	padding-bottom:10px;
+}
+.row {
+	background:#eefef7;
+}
+.logo {
+	line-height: 13px;
+}
+.tabs {
+	position:relative;
+}
+.form_1 {
+	margin-top:20px;
+}
+.first_box {
+	background:#fdfaf4;
+	border-radius:5px;
+	border:1px solid #a7e3ca;
+	width:31%;
+	padding:5px;
+	float:left;
+	margin:5px;
+}
+.first_box input {
+	border:none;
+	border-bottom:1px solid #CCC;
+	width:100%;
+	background:#fdfaf4;
+}
+.inner_box1 {
+	width:100%;
+}
+.inner_box1 input {
+	float:left;
+	width:48%;
+	padding:1px;
+	border:none;
+	border-left:1px solid #000;
+	margin-top:5px;
+	color:#eceae6;
+}
+.inner_box1 input:first-child {
+	border-left:none;
+}
+.inner_box1 input+input {
+	text-align:right;
+}
+.first_box_2 {
+	background:#fdfaf4;
+	border-radius:5px;
+	border:1px solid #a7e3ca;
+	width:14%;
+	padding:5px;
+	float:left;
+	margin:5px;
+}
+.first_box_2 input {
+	color:#eceae6;
+	border:none;
+	width:100%;
+	background:#fdfaf4;
+	border-bottom:1px solid #ccc;
+}
+.inner_box2 input {
+	float:left;
+	width:48%;
+	padding:1px;
+	border:none;
+	
+	margin-top:5px;
+}
+.two
+{
+	top:40px;
+	border-radius:5px;
+}
+
+.tab_section_two
+{
+	position:relative;
+	padding:25px;
+	background:#c6e5d8;
+}
+
+
+
+
+
+.border_none  input{ border:none;}
+
+
+
+
+
+
+
+.tabs .tab-nav2 {
+	margin: 0;
+	padding: 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+.tabs .tab-nav2 > li {
+	position: relative;
+	display: inline-block;
+	width: auto;
+	padding: 0;
+	margin: 0 2.12766% 0 0;
+	cursor: default;
+	top: 1px;
+}
+.tabs .tab-nav2> li > a {
+	display: block;
+	width: auto;
+	padding: 0 16px;
+	margin: 0;
+	color: #555555;
+	font-family: "Open Sans";
+	font-weight: 600;
+	border: 1px solid #e5e5e5;
+	border-width: 1px 1px 0 1px;
+	/*text-shadow: 0 1px 1px white;*/
+	background: #f2f2f2;
+	cursor: pointer;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-ms-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	height: 42px;
+	line-height: 40px;
+	text-decoration: none;
+}
+.tabs .tab-nav2 > li > a {
+	display: block;
+	width: auto;
+	padding: 0 16px;
+	margin: 0;
+	color: #555555;
+	font-family: "Open Sans";
+	font-weight: 600;
+	border: 1px solid #e5e5e5;
+	border-width: 1px 1px 0 1px;
+	/*text-shadow: 0 1px 1px white;*/
+	background: #f2f2f2;
+	cursor: pointer;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-ms-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	height: 42px;
+	line-height: 40px;
+	text-decoration: none;
+}
+
+.tabs .tab-nav2 > li > a:hover {
+	text-decoration: none;
+	background: whitesmoke;
+}
+.tabs .tab-nav2 > li > a:active {
+	background: #ededed;
+}
+.tabs .tab-nav2 > li.active > a {
+	height: 43px;
+	line-height: 41px;
+	background: #fff;
+}
+.tabs .tab-nav > li:last-child {
+	margin-right: 0;
+}
+.tabs .tab-content {
+	display: none;
+	padding:0px 0px;
+}
+.tabs .tab-content.active {
+	display: block;
+}
+
+
+.tabs .tab-content_2 {
+	display: none;
+	padding:0px 0px;
+}
+.tabs .tab-content_2.active {
+	display: block;
+}
+
+
+
+.tabs.pill .tab-nav2 {
+	/*width: 100%;*/ /* remove if you dont want the tabs to span the full container width */
+	display: table;
+	overflow: hidden;
+	border:solid 0px #000000;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright:5px;
+	-moz-border-radius-bottomleft:0px;
+	-moz-border-radius-bottomright:0px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-webkit-border-bottom-left-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+	border-bottom-left-radius:5px;
+	border-bottom-right-radius:5px;
+	position: absolute;
+	right: 5px;
+	top: -63px;
+}
+.tabs.pill .tab-nav2 > li {
+	display: table-cell;
+	margin: 0;
+	margin-left: -4px;
+	text-align: center;
+	top: 0;
+}
+.tabs.pill .tab-nav2 > li:first-child {
+	margin-left: 0;
+}
+.tabs.pill .tab-nav2 > li > a {
+	border: none;
+	
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	-ms-border-radius: 0;
+	-o-border-radius: 0;
+	border-radius: 0;
+	height: 42px;
+	line-height: 40px;
+	background:#9fd2bc;
+	margin-left:20px;
+	border-radius:5px;
+	height:34px;
+	margin-top:5px;
+	line-height:33px;
+}
+.tabs.pill .tab-nav2 > li:last-child > a {
+	border-right: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
