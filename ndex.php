@@ -15,7 +15,7 @@ $templateList=$objMain->fetchAllTemplates();
 <script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="lib/ext/ext-all.js"></script>
 <script language="javascript" src="jquery-1.10.2.min.js"></script>
-<script language="javascript">
+<script language="javascript"><!--
 
 
 function switchLanguage(lang){
@@ -114,10 +114,12 @@ return divArray;
 function setAutoIncNo(){	
 	var autoIncNo=document.getElementById("autoIncNo").value;
 	if(autoIncNo!="" && !isNaN(autoIncNo)){
-	var divElements=findLabelDivs("roweditable");
-		for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML=(i+1)*parseInt(autoIncNo);
-			}
+		var count=1;
+		$("input#text_a").each(function(){
+			    	console.log(this);
+			    	this.value=(count++)*parseInt(autoIncNo);
+			    	this.setAttribute("value",this.value);
+			    });		    
 	}else{
 		Ext.Msg.alert("Error","Enter a Valid Number");
 	
@@ -125,19 +127,20 @@ function setAutoIncNo(){
 }
 
 function clearTemplate(){		
-	var divElements=findLabelDivs("roweditable");
-		for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML="";
-			}	
+	$('input[type="text"]').each(function(){
+    	this.value="";
+    	this.setAttribute("value","");
+    });	
 }
 
 function setDateField(){	
 	var dateField=document.getElementById("dateField").value;
 	if(dateField!=""){
-	var divElements=findLabelDivs("roweditable");
-		for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML+=dateField;
-			}
+		$("input#text_b").each(function(){
+	    	//console.log(this);
+	    	this.value=dateField;
+	    	this.setAttribute("value",this.value);
+	    });	
 	}else{
 		Ext.Msg.alert("Error","Enter a Text");
 		}
@@ -153,11 +156,9 @@ function toggleLines(buttonObj){
 	else{
 			buttonObj.firstChild.data="Double Line";
 			$(".sub_input_box").hide();
-			$("#root").addClass("single_line");
+			$("#root").addClass("single_line");			
 			$("#dateDiv").hide();		
-			}
-
-	
+			}	
 }
 
 function alignPrinter(){
@@ -191,7 +192,7 @@ function updateTemplatesList(){
 
 
 
-</script>
+--></script>
 <style type="text/css">
 @font-face {
   font-family: ScheherazadeW;
@@ -341,6 +342,7 @@ function updateTemplatesList(){
 </body>
 <script language="javascript">
 $(document).on('focusout','input[type="text"]',function(a){
+	console.log(a.target.value);
 	a.target.setAttribute("value",a.target.value);
 	});
 //int function 
