@@ -9,7 +9,7 @@ $templateList=$objMain->fetchAllTemplates();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
+<title>Teejan Label printer</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="lib/ext/resources/css/ext-all.css"/>
 <script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
