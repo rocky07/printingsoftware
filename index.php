@@ -2,31 +2,45 @@
 ob_start();
 include("autoload.php");
 $register = new Session();
-
 $objMain=new MainDAO();
 $templateList=$objMain->fetchAllTemplates();
 ?>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-6">
-<META HTTP-EQUIV="Content-language" CONTENT="ar">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Teejan Label printer</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="lib/ext/resources/css/ext-all.css"/>
 <script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="lib/ext/ext-all.js"></script>
-<script language="javascript" src="jquery-1.5.1.min.js"></script>
-<script language="javascript">
+<script language="javascript" src="jquery-1.10.2.min.js"></script>
+<script language="javascript"><!--
 
-function loadTemplate(tab){
+
+function switchLanguage(lang){
+	if(lang=="eng"){
+		//$('input[type="text"]').unbind('keyup');
+		$(document).unbind('keyup')
+		}
+	else{
+		$(document).on('keyup','input[type="text"]',function(a){
+		var element=a.target;
+		if(element.setSelectionRange){
+			element.setSelectionRange(0,0);
+			}
+		});
+	}
+} 
+
+function loadTemplate(tabUrl){
 	var basePath="template/";
-	var filePath=basePath+tab.value;
-	if(tab.value!=0){
+	var filePath=basePath+tabUrl;
     	$.post( filePath,"",
   	      function( data ) {	      	
 		       $("#layout").html(data);
   	      }
   	    );	
-	}
 }
 
 function loadDBTemplates(templateId){
@@ -100,10 +114,12 @@ return divArray;
 function setAutoIncNo(){	
 	var autoIncNo=document.getElementById("autoIncNo").value;
 	if(autoIncNo!="" && !isNaN(autoIncNo)){
-	var divElements=findLabelDivs("roweditable");
-		for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML=(i+1)*parseInt(autoIncNo);
-			}
+		var count=1;
+		$("input#text_a").each(function(){
+			    	console.log(this);
+			    	this.value=(count++)*parseInt(autoIncNo);
+			    	this.setAttribute("value",this.value);
+			    });		    
 	}else{
 		Ext.Msg.alert("Error","Enter a Valid Number");
 	
@@ -111,39 +127,38 @@ function setAutoIncNo(){
 }
 
 function clearTemplate(){		
-	var divElements=findLabelDivs("roweditable");
-		for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML="";
-			}	
+	$('input[type="text"]').each(function(){
+    	this.value="";
+    	this.setAttribute("value","");
+    });	
 }
 
 function setDateField(){	
 	var dateField=document.getElementById("dateField").value;
 	if(dateField!=""){
-	var divElements=findLabelDivs("roweditable");
-		for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML+=dateField;
-			}
+		$("input#text_b").each(function(){
+	    	//console.log(this);
+	    	this.value=dateField;
+	    	this.setAttribute("value",this.value);
+	    });	
 	}else{
 		Ext.Msg.alert("Error","Enter a Text");
 		}
 }
 
-function toggleLines(buttonObj){
-	var divElements=findLabelDivs("roweditable");
-	if(buttonObj.value=="DoubleLine"){
-		buttonObj.value="SingleLine"
-			for(var i=0;i<divElements.length;i++){
-				divElements[i].innerHTML+="<br/><hr/><br/>";
-				}
-		}
-	else{
-		buttonObj.value="DoubleLine";
-		for(var i=0;i<divElements.length;i++){
-			divElements[i].innerHTML="";
+function toggleLines(buttonObj){		
+	if(buttonObj.firstChild.data=="Double Line"){
+			buttonObj.firstChild.data="Single Line";
+			$(".sub_input_box").show();
+			$("#root").removeClass("single_line");
+			$("#dateDiv").show();			
 			}
-		}
-	
+	else{
+			buttonObj.firstChild.data="Double Line";
+			$(".sub_input_box").hide();
+			$("#root").addClass("single_line");			
+			$("#dateDiv").hide();		
+			}	
 }
 
 function alignPrinter(){
@@ -173,53 +188,163 @@ function updateTemplatesList(){
 				Ext.Msg.alert("Server Error","Server Error! Please try again");
 			}
 			});
-			
-	
 }
-</script>
+
+
+
+--></script>
 <style type="text/css">
+@font-face {
+  font-family: ScheherazadeW;
+  src: url(Scheherazade-R.woff);
+}
 
 @MEDIA print {
-	#layout{
 	
+	#top_part{
+	display:none;
 	}
-	#toolbar{
-	visibility:hidden;
+	.logo{
+	display:none;
+	}
+	.top_tab_box{
+	display:none;
+	}
+	.sub_box1{
+	display:none;
+	}
+	.button{
+	display:none;
+	}
+	.box3_sub{
+	display:none;
+	}
+	.sub_box3{
+	display:none;
+	}
+	.select_box{
+	display:none;
 	}
 }
 </style>
-</head>
-<body>
-<div id="wrapper">
-<div id="toolbar">
-<select onchange="loadTemplate(this);">
-<option value="0">None</option>
-<option value="smarttab30.html"> Smart Tab30</option>
-<option value="smarttab60.html">Smart Tab60</option>
-</select>
 
-<select id="dbTemplates" onchange="loadDBTemplates(this.value);">
-<option value="0">Select</option>
-<?php for($c=0;$c<count($templateList);$c++){?>
-<option value="<?php echo $templateList[$c]["id"]; ?>"><?php echo $templateList[$c]["name"]; ?></option>
-<?php
-}
-?>
-</select>
-<input type="button" value="Delete" onclick="deleteTemplate()" />
-Name : <input type="text" name="templateName" id="templateName"/> 
-<input type="button" oncliCK="saveAsTemplate();" value="Save Template"/>
-<input type="text" id="autoIncNo" />
-<input type="button" onclick="setAutoIncNo();" value="Apply"/>
-<input type="text" id="dateField" />
-<input type="button" onclick="setDateField();" value="Apply"/>
-<input type="button" onclick="toggleLines(this);" value="DoubleLines"/>
-<input type="button" onclick="clearTemplate();" value="Clear Template"/>
-<input type="button" onclick="alignPrinter();" value="Align Printer"/>
-<input type="button" value="Print" onclick="window.print();"/>
-</div>
-<div id="layout">
-</div>
-</div>
+
+</head>
+
+<body>
+	<div class="wapper">
+    	<div class="top_part">
+        	<div class="logo"><img src="img/logo.jpg" /></div>
+            <div class="top_tab_box">
+            	<div class="tab">
+                	<a href="#" onclick="loadTemplate('smarttab60.html')">SmartTAB60</a>
+                </div>
+                <div class="tab">
+                	<a href="#" onclick="loadTemplate('smarttab30.html')" class="active">SmartTAB30</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="box2">
+            	<div class="sub_box1">
+                	<div class="select_box">
+                        <select id="dbTemplates" onchange="loadDBTemplates(this.value);">
+							<option value="0">Select</option>
+							<?php for($c=0;$c<count($templateList);$c++){?>
+							<option value="<?php echo $templateList[$c]["id"]; ?>"><?php echo $templateList[$c]["name"]; ?></option>
+							<?php
+							}
+							?>
+						</select>
+                    </div>
+                    <div class="button">
+                    	<a href="#" onclick="deleteTemplate()">Del</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="sub_box1">
+                	<div class="select_box">
+                    	<input type="text" id="templateName" />
+                    </div>
+                    <div class="button">
+                    	<a href="#" onclick="saveAsTemplate();">Add</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="sub_box3">
+                	<div class="select_box">
+                    	<select onchange="switchLanguage(this.value);"  id="languageSelect">
+                        	<option value="eng">English</option>
+                            <option value="ab">Arabic</option>
+                        </select>
+                    </div>
+                    <div class="button">
+                    	<a href="#">Font</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="box2_tab">
+                	<div class="button">
+                    	<a href="#" onclick="alignPrinter();">Align Print</a>
+                    </div>
+                	
+                    <div class="button">
+                    	<a href="#" onclick="window.print();">Print</a>
+                    </div>
+                    <div class="button">
+                    	<a href="#" onclick="toggleLines(this);">Single Line</a>
+                    </div>
+                    
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="clear"></div>
+            </div>
+            
+            <div class="box3">
+            	<div class="box3_sub">
+                	<p>Auto Number lncrement</p>
+                    <input type="text" id="autoIncNo"/>
+                    <div class="button">
+                    	<a href="#" onclick="setAutoIncNo();">Apply</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div id="dateDiv" class="box3_sub">
+                	<p>Auto Add Date</p>
+                    <input type="text" id="dateField" />
+                    <div class="button">
+                    	<a href="#" onclick="setDateField();">Apply</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                
+                <div class="clear_box">
+                	<div class="button">
+                    	<a href="#" onclick="clearTemplate();">Clear Template</a>
+                    </div>
+                </div>
+                
+                <div class="clear"></div>
+            </div>
+        </div>
+        
+        <div id="layout">
+        contents goes here ...
+        
+        </div>
+        <div class="clear"></div>
+    </div>
 </body>
+<script language="javascript">
+$(document).on('focusout','input[type="text"]',function(a){
+	console.log(a.target.value);
+	a.target.setAttribute("value",a.target.value);
+	});
+//int function 
+switchLanguage($("#languageSelect").val());
+loadTemplate('smarttab30.html');
+</script>
 </html>
