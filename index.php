@@ -97,9 +97,10 @@ var templateId=document.getElementById("dbTemplates").value;
 	if(templateId!=""){//empty check for select
 		extAjaxSave("deleteTemplates.php",{id:templateId},updateTemplatesList);	
 	}else{
-		Ext.Msg.alert("Select a Template to Deletes");
+		Ext.Msg.alert("Select a Template to Delete");
 	}
 }
+
 function findLabelDivs(id){
 	var allElements=document.getElementsByTagName("div");
 	var divArray=new Array();
@@ -163,11 +164,50 @@ function toggleLines(buttonObj){
 
 function alignPrinter(){
 	new Ext.Window({
-			width:400,
-			height:300,
-			items:[{
-					
-					}
+		//	width:400,
+		//	height:300,
+		id:'alignprinter',
+			items:[
+				 new Ext.FormPanel({
+			        labelWidth: 75, // label settings here cascade unless overridden
+			        url:'save-form.php',
+			        frame:true,
+			        title: 'Simple Form',
+			        bodyStyle:'padding:5px 5px 0',
+			        width: 350,
+			        defaults: {width: 230},
+			        defaultType: 'numberfield',
+			        id:'myForm',
+
+			        items: [{
+			                fieldLabel: 'Top Setting',
+			                name: 'top',			            
+			                allowBlank:false,
+			                value:sessionStorage.getItem("top")
+			            },{
+			                fieldLabel: 'Side Setting',
+			                name: 'side',
+			                allowBlank:false,
+			                value:sessionStorage.getItem("side")
+			            }
+			        ],
+
+			        buttons: [{
+			            text: 'Save',
+			            handler:function(btn){
+			            	var form=Ext.getCmp('myForm').getForm();
+			            	sessionStorage.setItem("top",form.findField('top').getValue());
+			            	sessionStorage.setItem("side",form.findField('side').getValue());
+			            	Ext.getCmp('alignprinter').close();
+			            }
+			        },{
+			            text: 'Cancel',
+			            handler:function(){
+							Ext.getCmp('alignprinter').close();
+			            }
+				            
+			        }]
+			    })
 					]
 			
 			}).show();	
@@ -200,7 +240,9 @@ function updateTemplatesList(){
 }
 
 @MEDIA print {
-	
+	#layout{
+	color:'red'
+	}
 	#top_part{
 	display:none;
 	}
@@ -224,6 +266,12 @@ function updateTemplatesList(){
 	}
 	.select_box{
 	display:none;
+	}
+	.input_box{	
+	border:0;	
+	}
+	.wapper{
+	border:0;
 	}
 }
 </style>
