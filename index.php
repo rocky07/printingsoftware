@@ -12,6 +12,7 @@ $templateList=$objMain->fetchAllTemplates();
 <title>Teejan Label printer</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="lib/ext/resources/css/ext-all.css"/>
+<link rel="stylesheet" type="text/css" href="css/print.css"/>
 <script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="lib/ext/ext-all.js"></script>
 <script language="javascript" src="jquery-1.10.2.min.js"></script>
@@ -162,6 +163,19 @@ function toggleLines(buttonObj){
 			}	
 }
 
+function resetPrintPossition(){
+	var form=Ext.getCmp('myForm').getForm();
+	sessionStorage.setItem("top",form.findField('top').getValue());
+	sessionStorage.setItem("side",form.findField('side').getValue());
+	var newStyle=".input_box { margin-top :"+form.findField('top').getValue()+"px; margin-left: "+form.findField('side').getValue()+"px }";
+	//var newStyle=".input_box { p}";
+	
+	//var ret=document.styleSheets[2].cssRules[0].cssText.replace(".select_box {",replaceStyle);
+	var sheet=document.styleSheets[2];
+	sheet.media.appendMedium("print");
+	sheet.insertRule(newStyle, sheet.cssRules.length);
+}
+
 function alignPrinter(){
 	new Ext.Window({
 		//	width:400,
@@ -183,21 +197,19 @@ function alignPrinter(){
 			                fieldLabel: 'Top Setting',
 			                name: 'top',			            
 			                allowBlank:false,
-			                value:sessionStorage.getItem("top")
+			                value:sessionStorage.getItem("top")!=""?sessionStorage.getItem("top"):5
 			            },{
 			                fieldLabel: 'Side Setting',
 			                name: 'side',
 			                allowBlank:false,
-			                value:sessionStorage.getItem("side")
+			                value:sessionStorage.getItem("side")!=""?sessionStorage.getItem("side"):5
 			            }
 			        ],
 
 			        buttons: [{
 			            text: 'Save',
 			            handler:function(btn){
-			            	var form=Ext.getCmp('myForm').getForm();
-			            	sessionStorage.setItem("top",form.findField('top').getValue());
-			            	sessionStorage.setItem("side",form.findField('side').getValue());
+			        		resetPrintPossition();
 			            	Ext.getCmp('alignprinter').close();
 			            }
 			        },{
@@ -233,47 +245,9 @@ function updateTemplatesList(){
 
 
 --></script>
-<style type="text/css">
-@font-face {
-  font-family: ScheherazadeW;
-  src: url(Scheherazade-R.woff);
-}
+<style lang="stylesheet" type="text/css">
 
-@MEDIA print {
-	#layout{
-	color:'red'
-	}
-	#top_part{
-	display:none;
-	}
-	.logo{
-	display:none;
-	}
-	.top_tab_box{
-	display:none;
-	}
-	.sub_box1{
-	display:none;
-	}
-	.button{
-	display:none;
-	}
-	.box3_sub{
-	display:none;
-	}
-	.sub_box3{
-	display:none;
-	}
-	.select_box{
-	display:none;
-	}
-	.input_box{	
-	border:0;	
-	}
-	.wapper{
-	border:0;
-	}
-}
+
 </style>
 
 

@@ -1,0 +1,35 @@
+@MEDIA print {
+	#layout{
+	color:'red'
+	}
+	#top_part{
+	display:none;
+	}
+	.logo{
+	display:none;
+	}
+	.top_tab_box{
+	display:none;
+	}
+	.sub_box1{
+	display:none;
+	}
+	.button{
+	display:none;
+	}
+	.box3_sub{
+	display:none;
+	}
+	.sub_box3{
+	display:none;
+	}
+	.select_box{
+	display:none;
+	}
+	.input_box{	
+	//border:0;	
+	}
+	.wapper{
+	border:0;
+	}
+}
