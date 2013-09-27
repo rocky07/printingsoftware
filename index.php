@@ -16,21 +16,32 @@ $templateList=$objMain->fetchAllTemplates();
 <script type="text/javascript" src="lib/ext/adapter/ext/ext-base.js"></script>
 <script type="text/javascript" src="lib/ext/ext-all.js"></script>
 <script language="javascript" src="jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="js/unicode.js"></script> 
 <script language="javascript"><!--
 
 
 function switchLanguage(lang){
 	if(lang=="eng"){
-		//$('input[type="text"]').unbind('keyup');
-		$(document).unbind('keyup')
+		location.reload();
 		}
 	else{
-		$(document).on('keyup','input[type="text"]',function(a){
+		var language="ar";
+		var count=0;
+		$(".unicode").each(function(){
+			this.setAttribute("lang",language);
+			var id="text_a"+count++;
+			this.setAttribute("id",id);	    	
+	    	$("#"+id).addClass("unicode");
+	    	changeLanguage(id, language);
+	    });
+		
+		/*$(document).on('keyup','input[type="text"]',function(a){
 		var element=a.target;
 		if(element.setSelectionRange){
 			element.setSelectionRange(0,0);
 			}
-		});
+		});*/
 	}
 } 
 
@@ -117,7 +128,7 @@ function setAutoIncNo(){
 	var autoIncNo=document.getElementById("autoIncNo").value;
 	if(autoIncNo!="" && !isNaN(autoIncNo)){
 		var count=1;
-		$("input#text_a").each(function(){
+		$(".unicode").each(function(){
 			    	console.log(this);
 			    	this.value=(count++)*parseInt(autoIncNo);
 			    	this.setAttribute("value",this.value);
@@ -157,7 +168,7 @@ function toggleLines(buttonObj){
 			}
 	else{
 			buttonObj.firstChild.data="Double Line";
-			$(".sub_input_box").hide();
+			$(".sub_input_box").hide();	
 			$("#root").addClass("single_line");			
 			$("#dateDiv").hide();		
 			}	
@@ -212,7 +223,7 @@ function alignPrinter(){
 			        		resetPrintPossition();
 			            	Ext.getCmp('alignprinter').close();
 			            }
-			        },{
+			       		 },{
 			            text: 'Cancel',
 			            handler:function(){
 							Ext.getCmp('alignprinter').close();
@@ -366,7 +377,7 @@ $(document).on('focusout','input[type="text"]',function(a){
 	a.target.setAttribute("value",a.target.value);
 	});
 //int function 
-switchLanguage($("#languageSelect").val());
+//switchLanguage($("#languageSelect").val());
 loadTemplate('smarttab30.html');
 </script>
 </html>
