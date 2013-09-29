@@ -57,13 +57,15 @@ function loadTemplate(tabUrl){
 
 function loadDBTemplates(templateId){
 url="loaddbtemplates.php";
-Ext.Ajax.request({
-url:url,
-params:{templateId:templateId},
-	success:function(response){
-		document.getElementById("layout").innerHTML=response.responseText;
+if(templateId!=0){
+	Ext.Ajax.request({
+	url:url,
+	params:{templateId:templateId},
+		success:function(response){
+			document.getElementById("layout").innerHTML=response.responseText;
+		}
+		});
 	}
-	});
 }
 
 function extAjaxSave(url,params,callback){
@@ -106,7 +108,7 @@ var template=document.getElementById("layout").innerHTML;
 
 function deleteTemplate(){
 var templateId=document.getElementById("dbTemplates").value;
-	if(templateId!=""){//empty check for select
+	if(templateId!="0"){//empty check for select
 		extAjaxSave("deleteTemplates.php",{id:templateId},updateTemplatesList);	
 	}else{
 		Ext.Msg.alert("Select a Template to Delete");
@@ -313,7 +315,7 @@ function updateTemplatesList(){
                         </select>
                     </div>
                     <div class="button">
-                    	<a href="#">Font</a>
+                    	<a href="#">Lang</a>
                     </div>
                     <div class="clear"></div>
                 </div>
