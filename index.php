@@ -19,7 +19,17 @@ $templateList=$objMain->fetchAllTemplates();
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript" src="js/unicode.js"></script> 
 <script language="javascript"><!--
-
+var count=0;
+function toggleAlignText(){
+	count++;
+	count=count%3;	
+	var align=["left","center","right"];
+	$("input[id^='text_a']").each(function(){
+    	//console.log(this);
+    	this.style.textAlign=align[count];
+    	//this.setAttribute("value",this.value);
+    });	
+}
 
 function switchLanguage(lang){
 	if(lang=="eng"){
@@ -180,7 +190,8 @@ function resetPrintPossition(){
 	var form=Ext.getCmp('myForm').getForm();
 	sessionStorage.setItem("top",form.findField('top').getValue());
 	sessionStorage.setItem("side",form.findField('side').getValue());
-	var newStyle=".input_box { margin-top :"+form.findField('top').getValue()+"px; margin-left: "+form.findField('side').getValue()+"px }";
+	var newStyle="#layout { margin-top :"+form.findField('top').getValue()+"px; margin-left: "+form.findField('side').getValue()+"px }";
+	//var newStyle="#layout{margin-top:}"
 	//var newStyle=".input_box { p}";
 	
 	//var ret=document.styleSheets[2].cssRules[0].cssText.replace(".select_box {",replaceStyle);
@@ -315,7 +326,7 @@ function updateTemplatesList(){
                         </select>
                     </div>
                     <div class="button">
-                    	<a href="#">Lang</a>
+                    	<a href="#" onclick="toggleAlignText()">--</a>
                     </div>
                     <div class="clear"></div>
                 </div>

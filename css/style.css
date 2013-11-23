@@ -25,7 +25,7 @@ img{ border:0px;}
 
 
 
-.wapper{ width:951px; margin:0px auto; border:1px solid #000000; margin-top:10px;  } 
+.wapper{ width:990px; margin:0px auto; border:1px solid #000000; margin-top:10px;  } 
 .top_part{}
 .logo{ width:30.6%; float:left;}
 .top_tab_box{ width:69.3%; float:left; background-color:#edfff8; height:97px;}
@@ -84,7 +84,7 @@ border-radius: 3px; border:none;}
 .condant_box{ background-color:#f6fdf2; padding:10px;}
 
 .input_box{ border:2px solid #60d0a2; -webkit-border-radius: 5px;
-border-radius: 5px; width:286px;  float:left; margin:10px 10px; }
+border-radius: 5px; width:266px;  float:left; margin:10px 10px; }
 
 .input_box input{ width:97%; padding:7px 3px; border:none; border-bottom:1px solid #f6fdf2;}
 

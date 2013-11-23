@@ -20,6 +20,12 @@
 	.box3_sub{
 	display:none;
 	}
+	.box3{
+	border:0;
+	}
+	.box3{
+	padding:0;
+	}
 	.sub_box3{
 	display:none;
 	}
@@ -28,8 +34,14 @@
 	}
 	.input_box{	
 	border:0;	
+	width:268px;
+	margin-top: 0px;
+	margin-left: 0px;
+	margin-bottom: 112px;
+    margin-right: 58px
 	}
 	.wapper{
 	border:0;
+	margin-top: 0px;
 	}
 }
