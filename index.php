@@ -200,6 +200,68 @@ function resetPrintPossition(){
 	sheet.insertRule(newStyle, sheet.cssRules.length);
 }
 
+function resetPrintAlignment(){
+	var form=Ext.getCmp('myForm').getForm();
+	sessionStorage.setItem("right",form.findField('right').getValue());
+	sessionStorage.setItem("bottom",form.findField('bottom').getValue());
+	//var newStyle=".input_box{ margin-right :"+form.findField('right').getValue()+"px; margin-bottom: "+form.findField('bottom').getValue()+"px }";
+	var newStyle=".smarttab30{ margin-right :"+form.findField('right').getValue()+"px; margin-bottom: "+form.findField('bottom').getValue()+"px }";
+	//var newStyle="#layout{margin-top:}"
+	//var newStyle=".input_box { p}";
+	
+	//var ret=document.styleSheets[2].cssRules[0].cssText.replace(".select_box {",replaceStyle);
+	var sheet=document.styleSheets[2];
+	sheet.media.appendMedium("print");
+	sheet.insertRule(newStyle, sheet.cssRules.length);
+}
+
+
+function settingsPopup(){
+	new Ext.Window({
+		id:'alignprinter',
+			items:[
+				 new Ext.FormPanel({
+			        labelWidth: 85, // label settings here cascade unless overridden
+			        url:'save-form.php',
+			        frame:true,
+			        title: 'Settings Form',
+			        bodyStyle:'padding:5px 5px 0',
+			        width: 350,
+			        defaults: {width: 240},
+			        defaultType: 'numberfield',
+			        id:'myForm',
+
+			        items: [{
+			                fieldLabel: 'Margin Right',
+			                name: 'right',			            
+			                allowBlank:false,
+			                value:sessionStorage.getItem("right")!=null?sessionStorage.getItem("right"):58
+			            },{
+			                fieldLabel: 'Margin Bottom',
+			                name: 'bottom',
+			                allowBlank:false,
+			                value:sessionStorage.getItem("bottom")!=null?sessionStorage.getItem("bottom"):112
+			            }
+			        ],
+
+			        buttons: [{
+			            text: 'Save',
+			            handler:function(btn){			        		
+			        		resetPrintAlignment();
+			            	Ext.getCmp('alignprinter').close();
+			            }
+			       		 },{
+			            text: 'Cancel',
+			            handler:function(){
+							Ext.getCmp('alignprinter').close();
+			            }
+				            
+			        }]
+			    })
+					]
+			
+			}).show();
+}
 function alignPrinter(){
 	new Ext.Window({
 		//	width:400,
@@ -221,12 +283,12 @@ function alignPrinter(){
 			                fieldLabel: 'Top Setting',
 			                name: 'top',			            
 			                allowBlank:false,
-			                value:sessionStorage.getItem("top")!=""?sessionStorage.getItem("top"):5
+			                value:sessionStorage.getItem("top")!=null?sessionStorage.getItem("top"):5
 			            },{
 			                fieldLabel: 'Side Setting',
 			                name: 'side',
 			                allowBlank:false,
-			                value:sessionStorage.getItem("side")!=""?sessionStorage.getItem("side"):5
+			                value:sessionStorage.getItem("side")!=null?sessionStorage.getItem("side"):5
 			            }
 			        ],
 
@@ -367,8 +429,13 @@ function updateTemplatesList(){
                     <div class="clear"></div>
                 </div>
                 
-                <div class="clear_box">
-                	<div class="button">
+                
+                <div class="box2_tab">
+                <div class="button">
+                    	<a href="#" onclick="settingsPopup();">Settings</a>
+                    </div>
+                	
+                    <div class="button">
                     	<a href="#" onclick="clearTemplate();">Clear Template</a>
                     </div>
                 </div>

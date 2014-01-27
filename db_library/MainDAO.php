@@ -508,7 +508,21 @@ class MainDAO extends Database_MySql
 				$this->setError($validator->getMessage())	;
 			}
 		 return $result;		
-	}
-	
+		}
+		
+	function modifyRecipes($title,$ingredients,$prep,$notes,$created_by){
+		
+			$array=array(
+										"title"=>$values["title"],
+										"ingredients"=>$values["ingredients"],
+										"prep"=>$values["prep"],
+										"notes"=>$values["notes"],
+										"avatar_id"=>$values["avatar_id"]	
+							);							
+					$type	=	"ssssi";				
+					$this->insert($array,"recipe",$type);
+					$result	=	true;	
+					echo $result;	
+	}	
 	
 }?>
