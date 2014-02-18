@@ -205,7 +205,8 @@ function resetPrintAlignment(){
 	sessionStorage.setItem("right",form.findField('right').getValue());
 	sessionStorage.setItem("bottom",form.findField('bottom').getValue());
 	//var newStyle=".input_box{ margin-right :"+form.findField('right').getValue()+"px; margin-bottom: "+form.findField('bottom').getValue()+"px }";
-	var newStyle=".smarttab30{ margin-right :"+form.findField('right').getValue()+"px; margin-bottom: "+form.findField('bottom').getValue()+"px }";
+	var newStyle=".input_box{ margin-right :"+form.findField('right').getValue()+"px; margin-bottom: "+form.findField('bottom').getValue()+"px }";
+//	var newStyle=".smarttab60{ margin-right :"+form.findField('right').getValue()+"px; margin-bottom: "+form.findField('bottom').getValue()+"px }";
 	//var newStyle="#layout{margin-top:}"
 	//var newStyle=".input_box { p}";
 	
@@ -432,11 +433,15 @@ function updateTemplatesList(){
                 
                 <div class="box2_tab">
                 <div class="button">
-                    	<a href="#" onclick="settingsPopup();">Settings</a>
+                    	<a href="#" onclick="settingsPopup();">Side Settings</a>
                     </div>
                 	
                     <div class="button">
                     	<a href="#" onclick="clearTemplate();">Clear Template</a>
+                    </div>
+                    
+                    <div class="button">
+                    	<a href="setuppage.php" target="_new">Print Template</a>
                     </div>
                 </div>
                 
