@@ -2,12 +2,10 @@
 <!--
 @page {
    size: A4;
-   margin-top:0px;
+   margin-top:70px;
    margin-left:0px;
 }
-@MEDIA print {
 
-}
 -->
 </style>
 <body onload="window.print()">
@@ -16,7 +14,7 @@
 for($i=0;$i<=20;$i++){
 	$j=$i*10;
 ?>
-<div style="float:left;width:30px; margin-top:<?php echo $j ?>"><hr color="black"><?php echo $j?></div>
+<div style="border-top:2px	solid black;float:left;width:30px; margin-top:<?php echo $j ?>"><?php echo $j?></div>
 <?php 
 }
 ?>
